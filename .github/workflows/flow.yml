@@ -5,6 +5,7 @@ on:
         paths:
             - 'src/**'
             - 'Dockerfile'
+            - 'k8s/**'
             - '.github/workflows/**'
         branches:
             - main # trigger when you push to main branch
@@ -34,3 +35,7 @@ jobs:
             # 4. Push to Docker Hub
             - name: Push image
               run: docker push ${{ secrets.DOCKER_USERNAME }}/qr-generator:latest
+
+            - name: Deploy to Kubernetes
+              run: |
+               kubectl apply -f k8s/
