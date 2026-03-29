@@ -36,6 +36,6 @@ jobs:
             - name: Push image
               run: docker push ${{ secrets.DOCKER_USERNAME }}/qr-generator:latest
 
-            - name: Deploy to Kubernetes
-              run: |
-               kubectl apply -f k8s/
+            # - name: Deploy to Kubernetes
+            #   run: |
+            #    kubectl apply -f k8s/
