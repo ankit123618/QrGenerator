@@ -38,6 +38,7 @@ qr-generator/
 │   └── index.html
 ├── .gitignore
 ├── Dockerfile
+├── LICENCE
 └── Readme.md
 ```
 
@@ -57,6 +58,10 @@ qr-generator/
 - Builds a container image using `nginx:alpine`.
 - Copies the static files from `src/` into Nginx's default web root.
 - Exposes port `80` and starts Nginx in the foreground.
+
+`LICENCE`
+- Contains the project's license text.
+- Defines the terms under which the project can be used, modified, and shared.
 
 ### `.github/`
 
@@ -181,6 +186,10 @@ It currently:
 - rebuilds the Docker image when source, Kubernetes, Docker, or workflow files change
 - tags the image as `latest` and with the Git commit SHA
 - pushes the `latest` tag to Docker Hub
+
+## License
+
+The project license is provided in [`LICENCE`](/var/www/html/qr-generator/LICENCE).
 
 ## Notes
 
