@@ -1,4 +1,5 @@
 let qrCanvas = null;
+const EXPORT_PADDING = 20;
 
 function generateQR() {
     let url = document.getElementById("urlInput").value.trim();
@@ -6,7 +7,7 @@ function generateQR() {
     const downloadBtn = document.getElementById("downloadBtn");
 
     qrBox.innerHTML = "";
-    downloadBtn.style.display = "none";
+    downloadBtn.hidden = true;
     qrCanvas = null;
 
     if (!url) {
@@ -20,9 +21,7 @@ function generateQR() {
 
     // Bigger quiet zone for watches
     const wrapper = document.createElement("div");
-    wrapper.style.background = "white";
-    wrapper.style.padding = "20px";
-    wrapper.style.display = "inline-block";
+    wrapper.className = "qr-frame";
 
     qrBox.appendChild(wrapper);
 
@@ -40,8 +39,24 @@ function generateQR() {
 
     setTimeout(() => {
         qrCanvas = qrDiv.querySelector("canvas");
+
+        if (!qrCanvas) {
+            const qrImage = qrDiv.querySelector("img");
+
+            if (qrImage) {
+                const fallbackCanvas = document.createElement("canvas");
+                const fallbackSize = qrImage.naturalWidth || 100;
+                fallbackCanvas.width = fallbackSize;
+                fallbackCanvas.height = fallbackSize;
+
+                const ctx = fallbackCanvas.getContext("2d");
+                ctx.drawImage(qrImage, 0, 0, fallbackCanvas.width, fallbackCanvas.height);
+                qrCanvas = fallbackCanvas;
+            }
+        }
+
         if (qrCanvas) {
-            downloadBtn.style.display = "inline-block";
+            downloadBtn.hidden = false;
         }
     }, 400);
 }
@@ -49,8 +64,17 @@ function generateQR() {
 function downloadQR() {
     if (!qrCanvas) return;
 
+    const exportCanvas = document.createElement("canvas");
+    exportCanvas.width = qrCanvas.width + EXPORT_PADDING * 2;
+    exportCanvas.height = qrCanvas.height + EXPORT_PADDING * 2;
+
+    const exportContext = exportCanvas.getContext("2d");
+    exportContext.fillStyle = "#ffffff";
+    exportContext.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+    exportContext.drawImage(qrCanvas, EXPORT_PADDING, EXPORT_PADDING);
+
     const link = document.createElement("a");
     link.download = "watch-qr.png";
-    link.href = qrCanvas.toDataURL("image/png");
+    link.href = exportCanvas.toDataURL("image/png");
     link.click();
 }

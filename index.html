@@ -2,26 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="shortcut icon" href="assets/image.png" type="image/x-icon">
 </head>
 <body>
+<header class="page-header">
+    <div class="header-inner">
+        <p class="eyebrow">Quick QR Maker</p>
+        <h1>QR Code Generator</h1>
+    </div>
+</header>
 
-<div class="container">
-    <h1>QR Code Generator</h1>
+<main class="page-content">
+    <section class="container">
+        <p class="section-copy">Paste a website link and generate a downloadable QR code in one click.</p>
 
-    <input type="text" id="urlInput" placeholder="Enter website URL">
+        <input type="text" id="urlInput" placeholder="Enter website URL">
 
-    <button onclick="generateQR()">Generate QR</button>
+        <div class="actions">
+            <button onclick="generateQR()">Generate QR</button>
 
-    <!-- Hidden initially -->
-    <button id="downloadBtn" onclick="downloadQR()" style="display:none;">
-        Download QR
-    </button>
+            <button id="downloadBtn" onclick="downloadQR()" hidden>
+                Download QR
+            </button>
+        </div>
 
-    <div id="qrBox"></div>
-</div>
+        <div id="qrBox" aria-live="polite"></div>
+    </section>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 <script src="assets/js/script.js"></script>
