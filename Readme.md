@@ -2,6 +2,19 @@
 
 `qr-generator` is a lightweight frontend application for generating QR codes from user-entered URLs. It is built with plain HTML, CSS, and JavaScript, and can be served directly as a static website or packaged with Docker and Kubernetes for deployment.
 
+<table>
+  <tr>
+    <td width="58%" valign="top">
+      <img src="assets/media/demo.gif" alt="RFPC demo" />
+    </td>
+    <td width="42%" valign="top">
+      <img src="assets/media/preview1.png" alt="RFPC screenshot 1" />
+      <img src="assets/media/preview2.png" alt="RFPC screenshot 1" />
+
+    </td>
+  </tr>
+</table>
+
 ## Features
 
 - Generate a QR code from a website URL.
@@ -47,25 +60,30 @@ qr-generator/
 ### Root Files
 
 `Readme.md`
+
 - Main project documentation.
 - Explains the app, setup steps, deployment options, and repository structure.
 
 `.gitignore`
+
 - Git ignore configuration file.
 - It is currently empty, so no local files are explicitly ignored by the repository.
 
 `Dockerfile`
+
 - Builds a container image using `nginx:alpine`.
 - Copies the static files from `src/` into Nginx's default web root.
 - Exposes port `80` and starts Nginx in the foreground.
 
 `LICENCE`
+
 - Contains the project's license text.
 - Defines the terms under which the project can be used, modified, and shared.
 
 ### `.github/`
 
 `.github/workflows/flow.yml`
+
 - GitHub Actions workflow for building and pushing the Docker image.
 - Runs on pushes to the `main` branch when relevant project files change.
 - Logs in to Docker Hub, builds the image, and pushes the `latest` tag.
@@ -73,39 +91,47 @@ qr-generator/
 ### `src/`
 
 `src/`
+
 - Contains the frontend application source files.
 - This directory is copied into the Docker image and served as static content.
 
 `src/index.html`
+
 - Main entry page for the QR generator UI.
 - Loads the stylesheet, input form, buttons, QR preview area, QRCode.js CDN script, and the local JavaScript logic.
 
 ### `src/assets/`
 
 `src/assets/`
+
 - Stores static frontend assets used by the app.
 - Organized by asset type for styling and behavior.
 
 `src/assets/css/style.css`
+
 - Defines the visual styling of the page, container, input field, button, and QR output area.
 - Uses a dark theme with red accents.
 
 `src/assets/js/script.js`
+
 - Contains the app logic for generating and downloading QR codes.
 - Validates the input, normalizes URLs, renders the QR code, and enables the download button after generation.
 
 ### `k8s/`
 
 `k8s/`
+
 - Contains Kubernetes manifests for deploying the application.
 - Includes one deployment and one service definition.
 
 `k8s/deployment.yaml`
+
 - Creates a Kubernetes `Deployment` named `qr-generator`.
 - Runs 2 replicas of the container image `ankit123618/qr-generator:latest`.
 - Exposes container port `80`.
 
 `k8s/service.yaml`
+
 - Creates a Kubernetes `Service` named `qr-generator-service`.
 - Exposes the application through a `NodePort` on port `30007`.
 - Routes traffic to pods labeled `app: qr-generator`.
@@ -130,7 +156,7 @@ git clone https://github.com/ankit123618/qr-generator.git
 cd qr-generator
 ```
 
-2. Open [`src/index.html`](/var/www/html/qr-generator/src/index.html) in your browser.
+1. Open [`src/index.html`](/var/www/html/qr-generator/src/index.html) in your browser.
 
 If you prefer serving it through a local HTTP server, any static server will work.
 
