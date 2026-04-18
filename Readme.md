@@ -10,7 +10,6 @@
     <td width="42%" valign="top">
       <img src="assets/media/preview1.png" alt="RFPC screenshot 1" />
       <img src="assets/media/preview2.png" alt="RFPC screenshot 1" />
-
     </td>
   </tr>
 </table>
